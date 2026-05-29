@@ -6,11 +6,12 @@ import type { IngestResult } from "@/lib/types";
 
 interface Props {
   onIngested: (result: IngestResult) => void;
+  aiOnline: boolean;
 }
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 
-export default function UploadZone({ onIngested }: Props) {
+export default function UploadZone({ onIngested, aiOnline }: Props) {
   const [dragging, setDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
@@ -54,6 +55,14 @@ export default function UploadZone({ onIngested }: Props) {
 
   return (
     <div className="w-full">
+      {!aiOnline ? (
+        <div className="rounded-xl border-2 border-dashed border-red-300 bg-red-50 p-8 text-center dark:border-red-800 dark:bg-red-950/20">
+          <p className="text-sm font-medium text-red-600 dark:text-red-400">AI service offline</p>
+          <p className="mt-1 text-xs text-red-500">
+            Start the AI backend to upload documents: <code className="rounded bg-red-100 px-1 dark:bg-red-900/30">python ai/main.py</code>
+          </p>
+        </div>
+      ) : (
       <div
         className={`relative rounded-xl border-2 border-dashed p-8 text-center transition-colors ${
           dragging
@@ -106,6 +115,7 @@ export default function UploadZone({ onIngested }: Props) {
           }}
         />
       </div>
+      )}
 
       {errors.length > 0 && (
         <div className="mt-3 space-y-1">
