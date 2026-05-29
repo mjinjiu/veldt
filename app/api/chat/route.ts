@@ -115,7 +115,7 @@ const AI_SERVICE_URL = process.env.AI_SERVICE_URL || "http://localhost:8000";
 
 export async function POST(req: Request) {
   try {
-    const { query, format, baseUrl, apiKey, model } = await req.json();
+    const { query, format, baseUrl, apiKey, model, history } = await req.json();
 
     if (!query?.trim()) {
       return Response.json({ error: "Query is required" }, { status: 400 });
@@ -145,7 +145,13 @@ export async function POST(req: Request) {
     }
 
     // 2. Build prompt & call LLM
-    const prompt = buildPrompt(query, results);
+    let prompt = buildPrompt(query, results);
+    if (history && history.length > 0) {
+      const historyContext = history
+        .map((m: { role: string; content: string }) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
+        .join("\n");
+      prompt = `## Previous Conversation\n${historyContext}\n\n${prompt}`;
+    }
     const signal = AbortSignal.timeout(60000);
     const base = baseUrl.replace(/\/+$/, "");
 
