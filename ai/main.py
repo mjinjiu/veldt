@@ -7,13 +7,29 @@ from pathlib import Path
 
 import lancedb
 import uvicorn
-from embed import embed_query, embed_texts
+import logging
+
+from embed import embed_query, embed_texts, get_model
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from splitter import split_text
 from pydantic import BaseModel
 from pypdf import PdfReader
 
+logging.basicConfig(level=logging.INFO, format="[veldt-ai] %(message)s")
+log = logging.getLogger("veldt")
+
 app = FastAPI(title="Veldt AI", version="0.1.0")
+
+# Preload embedding model at startup so connection issues surface immediately
+# rather than on the first user request
+@app.on_event("startup")
+async def startup():
+    try:
+        get_model()
+        log.info("Embedding model loaded successfully")
+    except RuntimeError as e:
+        log.error("Embedding model failed to load. Ingest and search will be unavailable.")
+        log.error(str(e))
 
 DATA_DIR = Path(os.environ.get("VELDT_DATA_DIR", "/data"))
 DB_PATH = DATA_DIR / "lancedb"
@@ -72,7 +88,10 @@ async def ingest(file: UploadFile = File(...)):
     if not chunks:
         raise HTTPException(400, "Document could not be split into chunks.")
 
-    embeddings = embed_texts(chunks)
+    try:
+        embeddings = embed_texts(chunks)
+    except RuntimeError:
+        raise HTTPException(503, "Embedding model is not available. Check server logs for details.")
     doc_id = str(uuid.uuid4())
 
     db = _get_db()
@@ -115,7 +134,10 @@ async def search(req: SearchRequest):
         return {"results": []}
 
     table = db.open_table("documents")
-    q_emb = embed_query(query)
+    try:
+        q_emb = embed_query(query)
+    except RuntimeError:
+        raise HTTPException(503, "Embedding model is not available. Check server logs for details.")
 
     results = (
         table.search(q_emb)
