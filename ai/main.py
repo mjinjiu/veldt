@@ -60,8 +60,10 @@ async def ingest(file: UploadFile = File(...)):
         text = _parse_pdf(content)
     elif ext in (".md", ".markdown"):
         text = _parse_markdown(content)
+    elif ext == ".txt":
+        text = _parse_markdown(content)  # UTF-8 decode, same as markdown
     else:
-        raise HTTPException(400, f"Unsupported format: {ext}. Use PDF or Markdown.")
+        raise HTTPException(400, f"Unsupported format: {ext}. Use PDF, Markdown, or TXT.")
 
     if not text.strip():
         raise HTTPException(400, "No extractable text found in document.")

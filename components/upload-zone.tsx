@@ -96,7 +96,7 @@ export default function UploadZone({ onIngested, aiOnline }: Props) {
                 Drop documents here or click to browse
               </p>
               <p className="mt-1 text-xs text-zinc-500">
-                PDF or Markdown, multiple files supported, up to 50MB each
+                PDF, Markdown, or TXT — multiple files supported, up to 50MB each
               </p>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function UploadZone({ onIngested, aiOnline }: Props) {
         <input
           ref={inputRef}
           type="file"
-          accept=".pdf,.md,.markdown"
+          accept=".pdf,.md,.markdown,.txt"
           multiple
           className="hidden"
           onChange={(e) => {
