@@ -59,7 +59,7 @@ export default function Home() {
 
   useEffect(() => { fetchDocuments(); }, [fetchDocuments]);
 
-  const handleIngested = useCallback((_result: IngestResult) => {
+  const handleIngested = useCallback(() => {
     fetchDocuments();
   }, [fetchDocuments]);
 

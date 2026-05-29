@@ -15,14 +15,12 @@ export default function UploadZone({ onIngested, aiOnline }: Props) {
   const [dragging, setDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
-  const [processed, setProcessed] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const uploadFiles = useCallback(
     async (files: FileList | File[]) => {
       setUploading(true);
       setErrors([]);
-      setProcessed([]);
 
       for (const f of files) {
         if (f.size > MAX_FILE_SIZE) {
@@ -41,7 +39,6 @@ export default function UploadZone({ onIngested, aiOnline }: Props) {
           }
           const result: IngestResult = await res.json();
           onIngested(result);
-          setProcessed((prev) => [...prev, f.name]);
         } catch (e) {
           const msg = `${f.name}: ${e instanceof Error ? e.message : "Upload failed"}`;
           setErrors((prev) => [...prev, msg]);
