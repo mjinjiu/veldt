@@ -1,0 +1,18 @@
+{
+  "change": "project-setup",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "e157460603f5c881da6fc83ae8292507c51645df7a0fb42f81feeeee2e5ad238",
+  "files": [
+    { "path": "openspec/changes/project-setup/proposal.md", "sha256": "664143d2b2358afb368d0027c6e29e695dd2b3ca0a511fc87a7d3a94be83a5dc" },
+    { "path": "openspec/changes/project-setup/design.md", "sha256": "0e50b0e92937656a5c5beec93bc2913f5f0f9836871ccc8b3d4818bb9dbb72bc" },
+    { "path": "openspec/changes/project-setup/tasks.md", "sha256": "10e9a34aa986dbc60d67c0924b628b552c5b7796091d9b375aa141290b9f5816" },
+    { "path": "openspec/changes/project-setup/specs/chat-persistence/spec.md", "sha256": "cc8c2fcf713757fb023413fade6e0f3067ee0bb199ac7c972f74c174b4fa4816" },
+    { "path": "openspec/changes/project-setup/specs/devops-pipeline/spec.md", "sha256": "951aaa10c0c3049759129e6d8264cc87e5c93efd77fadfa20ebbc0ea4b368e67" },
+    { "path": "openspec/changes/project-setup/specs/document-management/spec.md", "sha256": "b5024a1bc4c10322c6c04087991dc7723838cfd33d71db8dec76fa87c6c523bb" },
+    { "path": "openspec/changes/project-setup/specs/service-resilience/spec.md", "sha256": "663a17e1597e32c5362c2442554d441c9ec042fec77bcd3875f81d737fc0efd8" },
+    { "path": "openspec/changes/project-setup/specs/text-file-support/spec.md", "sha256": "604189940f7a9ae304fa4b9770418ea157fe66dc17d07b82873e0c04aba10232" }
+  ]
+}

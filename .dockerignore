@@ -1,0 +1,6 @@
+node_modules
+ai/venv
+ai/__pycache__
+.next
+.env
+.git

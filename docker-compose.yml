@@ -1,0 +1,13 @@
+services:
+  veldt:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - veldt_data:/data
+    environment:
+      - VELDT_DATA_DIR=/data
+    restart: unless-stopped
+
+volumes:
+  veldt_data:
