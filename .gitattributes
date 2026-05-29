@@ -1,0 +1,25 @@
+# Text files — normalize to LF for cross-platform consistency
+*.ts text=auto eol=lf
+*.tsx text=auto eol=lf
+*.js text=auto eol=lf
+*.mjs text=auto eol=lf
+*.json text=auto eol=lf
+*.md text=auto eol=lf
+*.yml text=auto eol=lf
+*.yaml text=auto eol=lf
+*.css text=auto eol=lf
+*.py text=auto eol=lf
+*.ps1 text=auto eol=lf
+*.sh text=auto eol=lf
+*.html text=auto eol=lf
+*.svg text=auto eol=lf
+*.txt text=auto eol=lf
+.env.example text=auto eol=lf
+
+# Binary files — prevent EOL conversion
+*.pyd binary
+*.dll binary
+*.exe binary
+*.node binary
+*.wasm binary
+*.lib binary

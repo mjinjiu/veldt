@@ -53,3 +53,23 @@ lancedb_data/
 # IDE
 .vscode/
 .idea/
+
+# Local AI tooling
+.claude/
+.superpowers/
+skills-lock.json
+
+# Local todo (keep private)
+TODO.md
+
+# Windows
+Thumbs.db
+*.lnk
+
+# Editor
+*~
+*.swp
+*.swo
+
+# Logs
+*.log

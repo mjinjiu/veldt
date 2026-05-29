@@ -4,3 +4,13 @@ ai/__pycache__
 .next
 .env
 .git
+.claude
+.superpowers
+skills-lock.json
+TODO.md
+*.log
+Thumbs.db
+*.lnk
+*~
+*.swp
+*.swo
