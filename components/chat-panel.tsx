@@ -11,25 +11,31 @@ interface Props {
   onSources: (sources: SearchResult[]) => void;
   conversation: Conversation | undefined;
   onUpdateConversation: (conv: Conversation) => void;
+  onNewConversation: (firstMessage: string) => Conversation;
 }
 
-export default function ChatPanel({ config, hasDocuments, aiOnline, onSources, conversation, onUpdateConversation }: Props) {
+export default function ChatPanel({ config, hasDocuments, aiOnline, onSources, conversation, onUpdateConversation, onNewConversation }: Props) {
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const messages = conversation?.messages || [];
 
-  const updateMessages = (newMessages: Message[]) => {
-    if (!conversation) return;
+  const updateMessages = (conv: Conversation, newMessages: Message[]) => {
     const name = newMessages.length > 0 && newMessages[0].role === "user"
       ? newMessages[0].content.slice(0, 40)
-      : conversation.name;
-    onUpdateConversation({ ...conversation, messages: newMessages, name, updatedAt: Date.now() });
+      : conv.name;
+    onUpdateConversation({ ...conv, messages: newMessages, name, updatedAt: Date.now() });
   };
 
   const send = async () => {
     const query = input.trim();
-    if (!query || !config?.apiKey || streaming || !conversation) return;
+    if (!query || !config?.apiKey || streaming) return;
+
+    // Auto-create conversation if none exists
+    let conv = conversation;
+    if (!conv) {
+      conv = onNewConversation(query);
+    }
 
     const controller = new AbortController();
     abortRef.current = controller;
@@ -37,15 +43,16 @@ export default function ChatPanel({ config, hasDocuments, aiOnline, onSources, c
     const idBase = Date.now();
     const userMsg: Message = { id: idBase, role: "user", content: query };
     const assistantId = idBase + 1;
-    const updatedMessages = [...messages, userMsg, { id: assistantId, role: "assistant" as const, content: "" }];
-    updateMessages(updatedMessages);
+    const baseMessages = conv.messages || [];
+    const updatedMessages = [...baseMessages, userMsg, { id: assistantId, role: "assistant" as const, content: "" }];
+    updateMessages(conv, updatedMessages);
     setInput("");
     setStreaming(true);
 
     let answer = "";
     let sources: SearchResult[] = [];
 
-    const contextPairs = messages.slice(-6);
+    const contextPairs = baseMessages.slice(-6);
 
     try {
       const res = await fetch("/api/chat", {
@@ -98,7 +105,7 @@ export default function ChatPanel({ config, hasDocuments, aiOnline, onSources, c
       const finalMsgs = updatedMessages.map((m) =>
         m.id === assistantId ? { ...m, content: answer || "No response", sources } : m
       );
-      updateMessages(finalMsgs);
+      updateMessages(conv, finalMsgs);
     }
   };
 

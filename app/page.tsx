@@ -88,6 +88,15 @@ export default function Home() {
     setActiveConvId(id);
   };
 
+  const handleAutoNewConversation = (firstMessage: string): Conversation => {
+    const id = crypto.randomUUID();
+    const name = firstMessage.slice(0, 40);
+    const conv: Conversation = { id, name, messages: [], createdAt: Date.now(), updatedAt: Date.now() };
+    setConversations((prev) => [...prev, conv]);
+    setActiveConvId(id);
+    return conv;
+  };
+
   const handleSelectConversation = (id: string) => {
     setActiveConvId(id);
   };
@@ -165,6 +174,7 @@ export default function Home() {
                 onSources={setSources}
                 conversation={activeConversation}
                 onUpdateConversation={handleUpdateConversation}
+                onNewConversation={handleAutoNewConversation}
               />
             </div>
             {sources.length > 0 && <SourceHighlight sources={sources} />}
