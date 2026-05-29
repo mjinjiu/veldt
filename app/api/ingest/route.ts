@@ -1,3 +1,9 @@
+export const config = {
+  api: {
+    bodyParser: { sizeLimit: "50mb" },
+  },
+};
+
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || "http://localhost:8000";
 
 export async function POST(req: Request) {
