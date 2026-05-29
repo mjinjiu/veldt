@@ -3,6 +3,8 @@ comet_change: project-setup
 role: technical-design
 canonical_spec: openspec
 date: 2026-05-29
+archived-with: 2026-05-29-project-setup
+status: final
 ---
 
 # Veldt Project Setup — Technical Design

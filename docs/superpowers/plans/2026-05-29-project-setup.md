@@ -2,6 +2,7 @@
 change: project-setup
 design-doc: docs/superpowers/specs/2026-05-29-project-setup-design.md
 base-ref: git-not-initialized
+archived-with: 2026-05-29-project-setup
 ---
 
 # Veldt Project Setup Implementation Plan
@@ -14,6 +15,7 @@ base-ref: git-not-initialized
 
 **Tech Stack:** Next.js 16, React 19, TypeScript, Tailwind CSS 4, Python FastAPI, LanceDB, Vitest + @testing-library/react, GitHub Actions
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ## File Structure
@@ -43,6 +45,7 @@ base-ref: git-not-initialized
 | `components/__tests__/chat-panel.test.tsx` | Create | Chat panel component test |
 | `components/__tests__/api-key-config.test.tsx` | Create | API key config component test |
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 1: Project Governance Setup
@@ -90,6 +93,7 @@ git add .env.example app/page.tsx
 git commit -m "chore: project governance setup — env example, github link, comet state"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 2: Service Resilience — AI_SERVICE_URL Config
@@ -158,6 +162,7 @@ git add app/api/ingest/route.ts app/api/chat/route.ts app/api/health/route.ts
 git commit -m "feat: configurable AI_SERVICE_URL via env var with localhost default"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 3: Service Resilience — File Size Validation
@@ -229,6 +234,7 @@ git add components/upload-zone.tsx app/api/ingest/route.ts
 git commit -m "feat: file size validation — 50MB client check + server bodyParser limit"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 4: Service Resilience — Graceful Degradation UI
@@ -303,6 +309,7 @@ git add components/upload-zone.tsx components/chat-panel.tsx
 git commit -m "feat: graceful degradation — offline-aware upload and chat components"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 5: Sidebar Layout Restructure
@@ -592,6 +599,7 @@ git add lib/types.ts components/confirm-dialog.tsx components/document-manager.t
 git commit -m "feat: sidebar layout — document manager, conversation list, mobile drawer"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 6: Restructure Page Layout to Sidebar + Main
@@ -817,6 +825,7 @@ git add app/page.tsx app/layout.tsx lib/hooks.ts
 git commit -m "feat: sidebar layout restructure — health polling, AI status, page layout"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 7: Chat Persistence — Multi-Conversation Support
@@ -1008,6 +1017,7 @@ git add components/chat-panel.tsx app/api/chat/route.ts
 git commit -m "feat: multi-conversation chat persistence with localStorage and context history"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 8: Document Management API + Python Backend
@@ -1128,6 +1138,7 @@ git add ai/main.py app/api/documents/
 git commit -m "feat: document management API — list, delete, preview via Python backend"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 9: Text File Support
@@ -1180,6 +1191,7 @@ git add ai/main.py components/upload-zone.tsx
 git commit -m "feat: add .txt file support — parsing, upload accept, help text"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 10: Fix Global Mutable State Bug
@@ -1216,6 +1228,7 @@ git add components/chat-panel.tsx
 git commit -m "fix: replace global mutable nextId with timestamp-based message IDs"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 11: Testing Setup + Component Tests
@@ -1363,6 +1376,7 @@ git add vitest.config.ts test-setup.ts package.json package-lock.json components
 git commit -m "test: add Vitest + RTL component tests for upload, chat, api-key config"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Task 12: GitHub Actions CI
@@ -1425,6 +1439,7 @@ git add .github/workflows/ci.yml
 git commit -m "ci: add GitHub Actions workflow — lint, type-check, test"
 ```
 
+archived-with: 2026-05-29-project-setup
 ---
 
 ### Plan Completion Checklist
