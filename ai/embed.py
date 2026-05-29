@@ -1,7 +1,13 @@
 """Embedding service using bge-small-en-v1.5 (384-dim, MIT license)."""
 from __future__ import annotations
 
+import os
+
 from sentence_transformers import SentenceTransformer
+
+# Offline mode: skip HuggingFace cache validation HEAD requests
+# Set HF_HUB_OFFLINE=0 to re-enable online cache verification
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
 
 MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
